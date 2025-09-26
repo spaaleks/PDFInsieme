@@ -1,0 +1,330 @@
+:root {
+    --panel: rgba(20, 25, 34, 0.9);
+    --panel2: rgba(20, 25, 34, 0.5);
+}
+
+body {
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    width: 100%;
+    height: 100vh;
+}
+
+header,
+footer {
+    padding: 10px;
+    background: var(--panel);
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+    opacity: 0;
+    transition: opacity 0.3s;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    color: #ffffff;
+}
+
+footer {
+    top: auto;
+    bottom: 0;
+    justify-content: center;
+}
+
+body:not(.idle) header,
+body:not(.idle) footer {
+    opacity: 1;
+}
+
+body.idle header,
+body.idle footer {
+    opacity: 0;
+}
+
+header .left,
+header .right,
+footer .left,
+footer .right {
+    width: 30%;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+header .left,
+footer .left {
+    justify-content: start;
+}
+
+header .right,
+footer .right {
+    justify-content: end;
+}
+
+header .center,
+footer .center {
+    width: 30%;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    flex-grow: 1;
+}
+
+.logo {
+    height: 20px;
+    width: auto;
+    margin-top: 8px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+
+#viewerContainer {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow: auto;
+    background: var(--bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    box-sizing: border-box;
+    height: 100vh;
+    overflow: hidden;
+}
+
+body.idle #viewerContainer,
+body.idle #viewerContainer * {
+    cursor: none !important;
+}
+
+.dz {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 6;
+    pointer-events: none;
+}
+
+.dz-box {
+    pointer-events: auto;
+    min-width: 320px;
+    max-width: 60vw;
+    padding: 80px 32px;
+    border: 2px dashed rgba(255, 255, 255, 0.35);
+    border-radius: 14px;
+    background: var(--panel);
+    color: #fff;
+    text-align: center;
+    backdrop-filter: blur(4px);
+    transition: all 300ms ease;
+}
+
+.dz svg {
+    display: block;
+    margin: 0 auto 8px;
+    opacity: .9;
+}
+
+.dz-title {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 1.2;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+
+.dz-sub {
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 1.3;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    opacity: .9;
+}
+
+
+.dz.dragover .dz-box {
+    border-color: #fff;
+    background: var(--panel2);
+}
+
+.dz.hidden {
+    display: none;
+}
+
+
+canvas {
+    background: #fff;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+    box-sizing: border-box;
+    transform: none;
+}
+
+input[type=file] {
+    box-sizing: border-box;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid color-mix(in srgb, var(--panel-border) 90%, #000 10%);
+    background: color-mix(in srgb, var(--panel) 80%, #000 20%);
+    color: var(--text);
+}
+
+input[type=file] {
+    padding: 8px 0
+}
+
+input::file-selector-button {
+    background: none;
+    color: #ffffff;
+    border: none;
+    box-sizing: border-box;
+    padding: 3px 12px;
+    border-radius: 10px
+}
+
+button {
+    appearance: none;
+    border: 1px solid var(--accent-light);
+    border-radius: 10px;
+    padding: 10px 14px;
+    /* background: linear-gradient(180deg, var(--accent), var(--accent-dark)); */
+    background: var(--accent-shadow);
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 6px 10px var(--accent-shadow);
+    transition: all 200ms ease;
+}
+
+button:hover {
+    background-color: var(--accent-shadow2);
+}
+
+button.btn-equal {
+    width: 100px;
+}
+
+button.btn-icon {
+    width: 37px;
+    height: 37px;
+    padding: 10px;
+}
+
+button.btn-icon img {
+    width: 100%;
+    height: auto;
+}
+
+#fsBtn {
+    justify-self: end;
+    flex-shrink: 1;
+}
+
+.grow {
+    flex: 1;
+}
+
+.status {
+    font-size: 12px;
+    color: #ffffff;
+}
+
+#pageLabel {
+    display: inline-block;
+    width: 80px;
+    text-align: center;
+}
+
+#pointerOverlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+#pointerDot {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    margin-left: -7px;
+    /* center the dot on coords */
+    margin-top: -7px;
+    border-radius: 50%;
+    background: rgba(255, 0, 0, 0.95);
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.9);
+    transform: translate(-9999px, -9999px);
+}
+
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: none;
+    z-index: 12;
+}
+
+.modal.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-box {
+    width: min(680px, 92vw);
+    background: var(--panel);
+    color: #fff;
+    border-radius: 12px;
+    padding: 45px 45px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.modal-row {
+    display: grid;
+    gap: 6px;
+    margin: 10px 0;
+}
+.modal-row.bottom {
+    margin-top: 20px;
+}
+
+.copyline {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.copyline input[type=text] {
+    flex: 1;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid color-mix(in srgb, var(--panel-border) 90%, #000 10%);
+    background: color-mix(in srgb, var(--panel) 80%, #000 20%);
+    color: var(--text);
+}
+
+.switch {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+}

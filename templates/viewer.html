@@ -1,0 +1,100 @@
+{% extends "layouts/base_viewer.html" %} 
+{% block title %}Room: {{ room }} | Viewer{% endblock %} 
+{% block extra_head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/viewer.css') }}"> 
+{% endblock %}
+{% block body %}
+<header>
+  <div class="left">
+    <a href="{{ url_for('lobby.lobby') }}">
+      <img src="{{ url_for('static', filename='images/logo.svg') }}" class="logo" />
+    </a>
+    <form id="uploadForm" action="/r/{{ room }}/upload" method="post" enctype="multipart/form-data">
+      <input id="fileInput" type="file" name="file" accept="application/pdf" style="display:none">
+      <button type="button" id="uploadBtn">Upload PDF</button>
+    </form>
+  </div>
+  <div class="center">
+  </div>
+  <div class="right">
+    <span class="status" id="status"></span>
+    <button id="lockBtn">Lock</button>
+  </div>
+</header>
+<div id="viewerContainer"> 
+  {% if not pdf_url %} 
+  <div id="dropzone" class="dz">
+    <div class="dz-box" role="button" tabindex="0" aria-label="Upload PDF">
+      <svg width="36" height="36" viewBox="0 0 24 24" aria-hidden="true">
+        <path fill="currentColor" d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18h14v2H5z" />
+      </svg>
+      <div class="dz-title">Drop a PDF here</div>
+      <div class="dz-sub">or click “Upload PDF”</div>
+    </div>
+  </div> 
+  {% endif %} 
+  <div id="pointerOverlay">
+    <div id="pointerDot"></div>
+  </div>
+  <canvas id="pdfCanvas" width="0" height="0"></canvas>
+</div>
+<div id="settingsModal" class="modal" aria-hidden="true">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-header">
+      <div id="modalTitle">Room settings</div>
+      <button id="modalClose" class="btn-icon" aria-label="Close">✕</button>
+    </div>
+    <div class="modal-row">
+      <label class="switch">
+        <input type="checkbox" id="guestToggle" {% if guest_enabled %}checked{% endif %}>
+        <span>Enable guest access</span>
+      </label>
+    </div>
+    <div class="modal-row">
+      <label>Room ID</label>
+      <div class="copyline">
+        <input id="roomId" type="text" readonly value="{{ room }}">
+        <button id="copyRoomId" class="btn-equal">Copy</button>
+      </div>
+    </div>
+    <div class="modal-row">
+      <label>Room link</label>
+      <div class="copyline">
+        <input id="regularLink" type="text" readonly value="{{ url_for('room.room_view', room=room, _external=True) }}">
+        <button id="copyRegular" class="btn-equal">Copy</button>
+      </div>
+    </div>
+    <div class="modal-row">
+      <label>Guest link</label>
+      <div class="copyline">
+        <input id="guestLink" type="text" readonly value="{{ url_for('room.guest_view', room=room, _external=True) }}">
+        <button id="copyGuest" class="btn-equal">Copy</button>
+      </div>
+    </div>
+    <div class="modal-row bottom">
+      <small class="muted">You can change the visibility any time by opening this window via the gear icon.</small>
+    </div>
+  </div>
+</div>
+<footer>
+  <div class="left"><button id="presenterBtn">Presenter Popup</button></div>
+  <div class="center">
+    <button class="btn-equal" id="prevBtn">Previous</button>
+    <span id="pageLabel">–/–</span>
+    <button class="btn-equal" id="nextBtn">Next</button>
+  </div>
+  <div class="right">
+    <button id="settingsBtn" class="btn-icon" aria-haspopup="dialog" aria-controls="settingsModal">
+      <img src="{{ url_for('static', filename='images/gear.svg') }}" alt="Settings">
+    </button>
+    <button id="fsBtn" class="btn-icon"><img
+           src="{{ url_for('static', filename='images/full-screen.svg') }}" /></button>
+  </div>
+</footer>
+{% endblock %} 
+{% block page_script %}
+<script type="module" src="{{ url_for('static', filename='js/components/ui-common.js') }}"></script>
+<script type="module" src="{{ url_for('static', filename='js/components/viewer-base.js') }}"></script>
+<script type="module" src="{{ url_for('static', filename='js/components/laser.js') }}"></script>
+<script type="module" src="{{ url_for('static', filename='js/viewer.js') }}"></script>
+{% endblock %}

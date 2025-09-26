@@ -1,0 +1,41 @@
+{% extends "layouts/base_viewer.html" %} 
+{% block title %}Room: {{ room }} | Viewer{% endblock %} 
+{% block extra_head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/viewer.css') }}">
+{% endblock %}
+{% block body %}
+<header>
+  <div class="left">
+    <a href="{{ url_for('lobby.lobby') }}">
+      <img src="{{ url_for('static', filename='images/logo.svg') }}" class="logo" />
+    </a>
+  </div>
+  <div class="center">
+  </div>
+  <div class="right">
+  </div>
+</header>
+<div id="viewerContainer"> 
+  <div id="pointerOverlay">
+    <div id="pointerDot"></div>
+  </div>
+  <canvas id="pdfCanvas" width="0" height="0"></canvas>
+</div>
+<footer>
+  <div class="left"></div>
+  <div class="center">
+    <span id="pageLabel">–/–</span>
+  </div>
+  <div class="right">
+    <button id="fsBtn" class="btn-icon"><img
+           src="{{ url_for('static', filename='images/full-screen.svg') }}" /></button>
+  </div>
+</footer>
+{% endblock %}
+{% block page_script %}
+<script type="module" src="{{ url_for('static', filename='js/components/ui-common.js') }}"></script>
+<script type="module" src="{{ url_for('static', filename='js/components/viewer-base.js') }}"></script>
+<script type="module" src="{{ url_for('static', filename='js/components/laser.js') }}"></script>
+<script type="module" src="{{ url_for('static', filename='js/viewer_guest.js') }}"></script>
+
+{% endblock %}

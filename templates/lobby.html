@@ -1,0 +1,37 @@
+{% extends "layouts/base.html" %}
+{% block title %}Jobs · Spal.Transcriber{% endblock %} 
+{% block content %} 
+<div class="forms two-col">
+    <form method="post" action="/create">
+        <h3>Create room</h3>
+        <label>Password</label>
+        <input name="password" type="password" placeholder="password" required>
+        <button type="submit">Create</button>
+    </form>
+    <form method="get" onsubmit="location.href='/r/'+this.room.value+'/join'; return false;">
+        <h3>Join a room</h3>
+        <label>Room ID</label>
+        <input type="text" name="room" placeholder="Room ID" required>
+        <button type="submit">Go</button>
+    </form>
+</div>
+<div class="why">
+    <h3 class="title">
+        Why does this project exist?
+    </h3>
+    <p>
+        PDFInsieme is a collaborative presentation tool.<br>
+        It was originally designed to solve a common problem in video calls:<br>
+        when sharing a PDF presentation, only one person controls the slides, and everyone else has to say "please click next".
+    </p>
+
+    <p>
+        With PDFInsieme, participants can stay in sync automatically.<br>
+        The presenter advances the slides, and all viewers (including guests) see the same page in real time.<br>
+        Additional features include a presenter view, shared laser pointer, upload handling, and guest access links.
+    <p>
+</div>
+<div class="footer">
+  by Spal<span class="dot">.</span>
+</div>
+{% endblock %}

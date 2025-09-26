@@ -1,0 +1,15 @@
+{% extends "layouts/base.html" %}
+{% block title %}Jobs · Spal.Transcriber{% endblock %} 
+{% block content %} 
+<div class="forms two-col">
+  <form method="post">
+    <h3>Join room <div class="badge">#{{ room }}</div></h3>
+    <label>Password</label>
+    <input name="password" type="password" placeholder="Password" required autofocus>
+    <button type="submit">Join</button>
+  </form>
+</div>
+<div class="footer">
+  by Spal<span class="dot">.</span>
+</div>
+{% endblock %}

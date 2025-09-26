@@ -1,0 +1,13 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='css/_variables.css') }}">
+<script src="{{ url_for('static', filename='js/lib/pdf.min.js') }}"></script>
+<script>
+  if (typeof pdfjsLib !== 'undefined') {
+    pdfjsLib.GlobalWorkerOptions.workerSrc = "{{ url_for('static', filename='js/lib/pdf.worker.min.js') }}";
+  }
+</script>
+<script src="{{ url_for('static', filename='js/lib/socket.io.min.js') }}"></script>
+<script>
+  window.ROOM = "{{ room }}";
+  window.pdfUrl = {{ (('"' + pdf_url + '"') if pdf_url else 'null')|safe }};
+</script>
+<script type="module" src="{{ url_for('static', filename='js/components/pdf-renderer.js') }}"></script>

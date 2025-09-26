@@ -1,0 +1,20 @@
+{% extends "layouts/base_viewer.html" %}
+{% block title %}Room: {{ room }} | Presenter{% endblock %}
+{% block extra_head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/presenter.css') }}">
+{% endblock %}
+{% block body %}
+<div id="wrap">
+  <div class="pane"><div class="label" id="currLabel">Current</div><div class="canvasWrap"><canvas id="currCanvas" width="0" height="0"></canvas></div></div>
+  <div class="pane"><div class="label" id="nextLabel">Next</div><div class="canvasWrap"><canvas id="nextCanvas" width="0" height="0"></canvas></div></div>
+</div>
+<div id="timerBar">
+  <div id="timerDisplay">00:00.0</div>
+  <div class="buttonGroup">
+    <button id="tStart">Start</button><button id="tStop">Stop</button><button id="tReset">Reset</button>
+  </div>
+</div>
+{% endblock %}
+{% block page_script %}
+<script type="module" src="{{ url_for('static', filename='js/presenter.js') }}"></script>
+{% endblock %}
